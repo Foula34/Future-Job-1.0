@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home/settings_screen.dart';
-
 import '../../models/user_model.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -29,12 +28,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 2,  // Légère ombre pour plus de profondeur
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
       ),
       body: SingleChildScrollView(
@@ -43,191 +40,139 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage('assets/images/me.jpg'),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                widget.user.name,
-                style: GoogleFonts.roboto(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                'Type d’emploi préféré: ${widget.user.preferredJobType}',
-                style: GoogleFonts.roboto(
-                  fontSize: 16,
-                  color: Colors.black,
-                ),
-              ),
+              _buildProfileHeader(),
               const SizedBox(height: 24),
-
-              // Actions rapides (Appel, Message, etc.)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.email, color: Colors.black),
-                    onPressed: () {
-                      // Action pour envoyer un email
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.phone, color: Colors.black),
-                    onPressed: () {
-                      // Action pour appeler
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.star, color: Colors.black),
-                    onPressed: () {
-                      // Action pour ajouter aux favoris
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.share, color: Colors.black),
-                    onPressed: () {
-                      // Action pour partager
-                    },
-                  ),
-                ],
-              ),
+              _buildQuickActions(),
               const SizedBox(height: 24),
-
-              // Section principale avec fond coloré
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ListTile(
-                      title: const Text(
-                        'Email',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(widget.user.email),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: const Text(
-                        'Numéro de téléphone',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(widget.user.phoneNumber),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: const Text(
-                        'Adresse',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(widget.user.address),
-                      trailing: const Icon(Icons.location_on),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: const Text(
-                        'Préférences de travail',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                        'Type: ${widget.user.preferredJobType}\n'
-                        'Secteur: ${widget.user.preferredIndustry}\n'
-                        'Localisation: ${widget.user.preferredLocation}',
-                      ),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: const Text(
-                        'Candidatures en cours',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text('2 candidatures en attente'),
-                      trailing: const Icon(Icons.work_outline),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: const Text(
-                        'Événements et webinaires',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text('Prochain événement : Webinaire sur le CV'),
-                      trailing: const Icon(Icons.event),
-                      onTap: () {
-                        // Naviguer vers la page des événements
-                      },
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: const Text(
-                        'Recommandations',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text('Emplois recommandés pour vous'),
-                      trailing: const Icon(Icons.recommend),
-                      onTap: () {
-                        // Naviguer vers la page des recommandations
-                      },
-                    ),
-                    const Divider(),
-                    ListTile(
-                      title: const Text(
-                        'Réseaux sociaux',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                          'LinkedIn: ${widget.user.linkedIn}\nTwitter: ${widget.user.twitter}\nInstagram: ${widget.user.instagram}'),
-                      trailing: const Icon(Icons.link),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      leading: const Icon(Icons.settings),
-                      title: const Text(
-                        'Paramètres',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SettingsScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-
+              _buildUserInfo(),
               const SizedBox(height: 24),
-
-              // Bouton pour modifier le profil
-              ElevatedButton.icon(
-                onPressed: () {
-                  // Action de modification du profil
-                },
-                icon: const Icon(Icons.edit),
-                label: const Text('Modifier le profil'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4C41A3),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
+              _buildEditProfileButton(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildProfileHeader() {
+    return Column(
+      children: [
+        const CircleAvatar(
+          radius: 50,
+          backgroundImage: AssetImage('assets/images/me.jpg'),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          widget.user.name,
+          style: GoogleFonts.roboto(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          ' ${widget.user.preferredJobType}',
+          style: GoogleFonts.roboto(fontSize: 16, color: Colors.grey[600]),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildQuickActions() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildActionButton(Icons.email, () => {/* Action pour envoyer un email */}),
+        _buildActionButton(Icons.phone, () => {/* Action pour appeler */}),
+        _buildActionButton(Icons.star, () => {/* Action pour ajouter aux favoris */}),
+        _buildActionButton(Icons.share, () => {/* Action pour partager */}),
+      ],
+    );
+  }
+
+  Widget _buildActionButton(IconData icon, VoidCallback onPressed) {
+    return IconButton(
+      icon: Icon(icon, color: Colors.blue),
+      onPressed: onPressed,
+      tooltip: 'Action ${icon.toString()}',  // Ajout d'un tooltip pour plus d'information
+    );
+  }
+
+  Widget _buildUserInfo() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildListTile('Email', widget.user.email),
+          _buildListTile('Numéro de téléphone', widget.user.phoneNumber),
+          _buildListTile('Adresse', widget.user.address, trailing: const Icon(Icons.location_on)),
+          _buildListTile(
+            'Préférences de travail',
+            'Type: ${widget.user.preferredJobType}\nSecteur: ${widget.user.preferredIndustry}\nLocalisation: ${widget.user.preferredLocation}',
+          ),
+          _buildListTile('Candidatures en cours', '2 candidatures en attente', trailing: const Icon(Icons.work_outline)),
+          _buildListTile(
+            'Événements et webinaires',
+            'Prochain événement : Webinaire sur le CV',
+            trailing: const Icon(Icons.event),
+            onTap: () {
+              // Naviguer vers la page des événements
+            },
+          ),
+          _buildListTile('Réseaux sociaux',
+            'LinkedIn: ${widget.user.linkedIn}\nTwitter: ${widget.user.twitter}\nInstagram: ${widget.user.instagram}',
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings, color: Colors.blue),
+            title: const Text('Paramètres', style: TextStyle(fontWeight: FontWeight.bold)),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildListTile(String title, String subtitle, {Icon? trailing, VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: Text(subtitle, style: TextStyle(color: Colors.grey[600])),
+            trailing: trailing,
+          ),
+          const Divider(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEditProfileButton() {
+    return ElevatedButton.icon(
+      onPressed: () {
+        // Action de modification du profil
+      },
+      icon: const Icon(Icons.edit),
+      label: const Text('Modifier le profil'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF4C41A3),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       ),
     );
   }
