@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/authentication/profile_screen.dart';
-
 import 'package:myapp/models/user_model.dart'; // Importez le modèle de User
 
 AppBar buildAppBar(int currentIndex, BuildContext context, User user) {
@@ -34,12 +32,12 @@ AppBar buildAppBar(int currentIndex, BuildContext context, User user) {
           onPressed: () {},
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
-        title: const Text('Messages'),
+        title: const Text('Notifications'),
         backgroundColor: Colors.white,
       );
     case 2:
       return AppBar(
-        title: const Text("Notifications"),
+        title: const Text("Emplois"),
         centerTitle: true,
         actions: [
           IconButton(
@@ -53,24 +51,24 @@ AppBar buildAppBar(int currentIndex, BuildContext context, User user) {
         ),
         backgroundColor: Colors.white,
       );
-    case 3:
-      return AppBar(
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/home');
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        title: Text(
-          'Emplois postulé',
-          style: GoogleFonts.roboto(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.white,
-      );
+    // case 3:
+    //   return AppBar(
+    //     centerTitle: true,
+    //     leading: IconButton(
+    //       onPressed: () {
+    //         Navigator.pushNamed(context, '/home');
+    //       },
+    //       icon: const Icon(Icons.arrow_back_ios),
+    //     ),
+    //     title: Text(
+    //       'Emplois postulé',
+    //       style: GoogleFonts.roboto(
+    //         fontSize: 24.0,
+    //         fontWeight: FontWeight.bold,
+    //       ),
+    //     ),
+    //     backgroundColor: Colors.white,
+    //   );
     default:
       return AppBar();
   }

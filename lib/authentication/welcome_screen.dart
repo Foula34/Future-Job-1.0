@@ -27,10 +27,11 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
                Text(
-                'Trouve le parfait\nJob ',
-                style: GoogleFonts.roboto(fontWeight: FontWeight.w700, fontSize: 35.0),
+                'Trouve le parfait\nJob En un Clic ',
+                style: GoogleFonts.roboto(fontWeight: FontWeight.w700, fontSize: 35.0,),
+                textAlign: TextAlign.left,
               ),
-               Text('Trouvez votre job de reve devient facile et facile avec future job',
+               Text('Trouvez votre job de reve devient facile et simple avec future job',
                   style: GoogleFonts.roboto(
                       fontSize: 15.0,
                       color: Colors.grey,
@@ -54,7 +55,7 @@ class WelcomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Let's Get Started",
+                        "Commençons",
                         style: GoogleFonts.roboto(
                             color: Colors.white,
                             fontSize: 18.0,

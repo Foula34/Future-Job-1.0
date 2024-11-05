@@ -16,14 +16,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
       userId: 'user1',
       title: 'Nimba Hub Notification',
       body: 'Vous avez reçu une notification de la part de Nimba hub',
-      timestamp: DateTime.now(),
+      timestamp: DateTime.now().subtract(Duration(minutes: 10)),
     ),
     AppNotification(
       id: 'notif2',
       userId: 'user2',
       title: 'Nimba Hub Notification',
       body: 'Vous avez reçu une notification de la part de Nimba hub',
-      timestamp: DateTime.now(),
+      timestamp: DateTime.now().subtract(Duration(hours: 1)),
     ),
   ];
 
@@ -41,8 +41,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
               Text(
                 'Notifications',
                 style: GoogleFonts.roboto(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
@@ -53,25 +53,50 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 itemCount: notifications.length,
                 itemBuilder: (context, index) {
                   final notification = notifications[index];
-                  return ListTile(
-                    leading: const CircleAvatar(
-                      radius: 25.0,
-                      backgroundImage: AssetImage('assets/images/me.jpg'),
+                  return Card(
+                    elevation: 2,
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
                     ),
-                    title: Text(
-                      notification.body,
-                      style: GoogleFonts.roboto(
-                        color: Colors.grey,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w500,
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        radius: 25.0,
+                        backgroundImage: AssetImage('assets/images/me.jpg'),
                       ),
-                    ),
-                    subtitle: Text(
-                      '${notification.timestamp.hour}:${notification.timestamp.minute.toString().padLeft(2, '0')}',
-                      style: GoogleFonts.roboto(
-                        color: Colors.grey,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w500,
+                      title: Text(
+                        notification.title, // Titre de la notification
+                        style: GoogleFonts.roboto(
+                          color: Colors.black,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            notification.body,
+                            style: GoogleFonts.roboto(
+                              color: Colors.grey[700],
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 4.0),
+                          Text(
+                            '${notification.timestamp.hour}:${notification.timestamp.minute.toString().padLeft(2, '0')}',
+                            style: GoogleFonts.roboto(
+                              color: Colors.grey,
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      trailing: const Icon(
+                        Icons.notifications,
+                        color: Colors.blueAccent,
                       ),
                     ),
                   );

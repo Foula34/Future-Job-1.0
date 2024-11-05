@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/home/settings_screen.dart';
 
 import '../../models/user_model.dart';
 
-
-
-
-
 class ProfileScreen extends StatefulWidget {
-  final User user; 
+  final User user;
 
   const ProfileScreen({super.key, required this.user});
 
@@ -23,11 +20,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title:  Text("Profile",style: GoogleFonts.roboto(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 20.0,
-        ),
+        title: Text(
+          "Profil",
+          style: GoogleFonts.roboto(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20.0,
+          ),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -44,14 +43,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              
               const CircleAvatar(
                 radius: 50,
                 backgroundImage: AssetImage('assets/images/me.jpg'),
               ),
               const SizedBox(height: 16),
-
-              
               Text(
                 widget.user.name,
                 style: GoogleFonts.roboto(
@@ -62,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                'Preferred Job: ${widget.user.preferredJobType}',
+                'Type d’emploi préféré: ${widget.user.preferredJobType}',
                 style: GoogleFonts.roboto(
                   fontSize: 16,
                   color: Colors.black,
@@ -70,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 24),
 
-              // Actions (Appel, Message, etc.)
+              // Actions rapides (Appel, Message, etc.)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -102,11 +98,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 24),
 
-              // Contenu principal sur fond bleu
+              // Section principale avec fond coloré
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Colors.blue.shade50,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Column(
@@ -151,6 +147,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const Divider(),
                     ListTile(
                       title: const Text(
+                        'Candidatures en cours',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text('2 candidatures en attente'),
+                      trailing: const Icon(Icons.work_outline),
+                    ),
+                    const Divider(),
+                    ListTile(
+                      title: const Text(
+                        'Événements et webinaires',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text('Prochain événement : Webinaire sur le CV'),
+                      trailing: const Icon(Icons.event),
+                      onTap: () {
+                        // Naviguer vers la page des événements
+                      },
+                    ),
+                    const Divider(),
+                    ListTile(
+                      title: const Text(
+                        'Recommandations',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text('Emplois recommandés pour vous'),
+                      trailing: const Icon(Icons.recommend),
+                      onTap: () {
+                        // Naviguer vers la page des recommandations
+                      },
+                    ),
+                    const Divider(),
+                    ListTile(
+                      title: const Text(
                         'Réseaux sociaux',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -159,15 +188,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       trailing: const Icon(Icons.link),
                     ),
                     const Divider(),
-
-                    
                     ListTile(
-                      leading:const Icon(Icons.settings) ,
+                      leading: const Icon(Icons.settings),
                       title: const Text(
                         'Paramètres',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      trailing: const Icon(Icons.arrow_back),
+                      trailing: const Icon(Icons.arrow_forward_ios),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -183,95 +210,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               const SizedBox(height: 24),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      
-                    },
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Modifier le profil'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4C41A3),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
+              // Bouton pour modifier le profil
+              ElevatedButton.icon(
+                onPressed: () {
+                  // Action de modification du profil
+                },
+                icon: const Icon(Icons.edit),
+                label: const Text('Modifier le profil'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4C41A3),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                ],
+                ),
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-// SettingsScreen reste inchangé
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Paramètres'),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: const [
-          ListTile(
-            leading: Icon(Icons.account_circle),
-            title: Text('Compte'),
-            subtitle: Text('Modifier les informations de votre compte'),
-            trailing: Icon(Icons.arrow_forward_ios),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.lock),
-            title: Text('Sécurité'),
-            subtitle: Text('Modifier les paramètres de sécurité'),
-            trailing: Icon(Icons.arrow_forward_ios),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.notifications),
-            title: Text('Notifications'),
-            subtitle: Text('Configurer les préférences de notification'),
-            trailing: Icon(Icons.arrow_forward_ios),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.privacy_tip),
-            title: Text('Confidentialité'),
-            subtitle: Text('Paramètres de confidentialité'),
-            trailing: Icon(Icons.arrow_forward_ios),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.language),
-            title: Text('Langue'),
-            subtitle: Text('Changer la langue de l\'application'),
-            trailing: Icon(Icons.arrow_forward_ios),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.help),
-            title: Text('Aide et support'),
-            subtitle: Text('Obtenir de l\'aide pour utiliser l\'application'),
-            trailing: Icon(Icons.arrow_forward_ios),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.info),
-            title: Text('À propos'),
-            subtitle: Text('Informations sur l\'application'),
-            trailing: Icon(Icons.arrow_forward_ios),
-          ),
-        ],
       ),
     );
   }

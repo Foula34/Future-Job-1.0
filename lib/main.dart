@@ -6,6 +6,7 @@ import 'package:myapp/authentication/welcome_screen.dart';
 import 'package:myapp/home/home_screen.dart';
 import 'package:myapp/home/job_detail_screen.dart';
 import 'package:myapp/home/notification_screen.dart';
+import 'package:myapp/home/settings_screen.dart';
 import 'package:myapp/home/subscribe_job_screen.dart';
 
 
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         '/welcome': (context) => const WelcomeScreen(),
         '/notification': (context) => const NotificationScreen(),
         '/sign': (context) => const SignScreen(),
+        '/setting': (context) => const SettingsScreen(),
         '/home': (context) => JobHomePage(user: currentUser), // Passez l'utilisateur ici
         '/drawer': (context) => const DrawerWidget(),
         '/details': (context) {
